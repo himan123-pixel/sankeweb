@@ -1,0 +1,215 @@
+@import "tailwindcss";
+
+@theme {
+  --color-pit: #0a140e;
+  --color-deep: #0c1811;
+  --color-panel: #101e16;
+  --color-panel2: #15271b;
+  --color-line: #23402e;
+  --color-line2: #2f5540;
+  --color-mint: #7ef0b0;
+  --color-mintdim: #3fae76;
+  --color-amber: #ffc24b;
+  --color-amberdim: #b2801f;
+  --color-coral: #ff6b5e;
+  --color-cream: #f2ead8;
+  --color-fog: #8faf9c;
+  --font-display: "Silkscreen", "Courier New", monospace;
+  --font-body: "Chakra Petch", "Segoe UI", sans-serif;
+}
+
+@layer base {
+  html {
+    color-scheme: dark;
+  }
+  body {
+    margin: 0;
+    background-color: var(--color-pit);
+    color: var(--color-cream);
+    font-family: var(--font-body);
+    -webkit-font-smoothing: antialiased;
+    -webkit-tap-highlight-color: transparent;
+  }
+  ::selection {
+    background: rgba(126, 240, 176, 0.28);
+  }
+  button {
+    cursor: pointer;
+  }
+  button:disabled {
+    cursor: not-allowed;
+  }
+  :focus-visible {
+    outline: 2px solid rgba(126, 240, 176, 0.7);
+    outline-offset: 2px;
+  }
+}
+
+@layer components {
+  .kbd {
+    font-family: var(--font-body);
+    font-size: 11px;
+    font-weight: 600;
+    line-height: 1;
+    color: var(--color-cream);
+    background: var(--color-deep);
+    border: 1px solid var(--color-line);
+    border-bottom-width: 3px;
+    border-radius: 5px;
+    padding: 4px 6px;
+    display: inline-block;
+    min-width: 22px;
+    text-align: center;
+  }
+
+  .btn-arcade {
+    font-family: var(--font-display);
+    letter-spacing: 0.04em;
+    border-radius: 8px;
+    transition: transform 0.08s ease, box-shadow 0.08s ease, filter 0.15s ease;
+    will-change: transform;
+  }
+  .btn-arcade:active {
+    transform: translateY(4px);
+    box-shadow: 0 0 0 0 rgba(0, 0, 0, 0) !important;
+  }
+
+  .panel-card {
+    background: var(--color-panel);
+    border: 1px solid var(--color-line);
+    border-radius: 10px;
+  }
+
+  .scanlines::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    border-radius: inherit;
+    background: repeating-linear-gradient(
+      to bottom,
+      rgba(240, 255, 244, 0.028) 0px,
+      rgba(240, 255, 244, 0.028) 1px,
+      transparent 1px,
+      transparent 3px
+    );
+    mix-blend-mode: overlay;
+  }
+}
+
+@keyframes pop-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.965);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes pop-in-late {
+  0% {
+    opacity: 0;
+    transform: translateY(12px) scale(0.965);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes blink-soft {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.2;
+  }
+}
+
+@keyframes score-bump {
+  0% {
+    transform: scale(1);
+  }
+  40% {
+    transform: scale(1.22);
+    color: var(--color-mint);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes badge-pop {
+  0% {
+    opacity: 0;
+    transform: scale(0.4) rotate(-8deg);
+  }
+  60% {
+    transform: scale(1.18) rotate(3deg);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) rotate(-2deg);
+  }
+}
+
+@keyframes lamp-breathe {
+  0%,
+  100% {
+    opacity: 1;
+    box-shadow: 0 0 8px 1px currentColor;
+  }
+  50% {
+    opacity: 0.45;
+    box-shadow: 0 0 2px 0 currentColor;
+  }
+}
+
+@keyframes firefly-drift {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+    opacity: 0.12;
+  }
+  30% {
+    opacity: 0.75;
+  }
+  50% {
+    transform: translate3d(16px, -26px, 0);
+    opacity: 0.3;
+  }
+  80% {
+    opacity: 0.65;
+  }
+}
+
+.anim-pop-in {
+  animation: pop-in 0.28s cubic-bezier(0.2, 0.9, 0.3, 1.2) both;
+}
+.anim-pop-in-late {
+  animation: pop-in-late 0.32s cubic-bezier(0.2, 0.9, 0.3, 1.2) 0.5s both;
+}
+.anim-blink {
+  animation: blink-soft 1.4s steps(2, jump-none) infinite;
+}
+.anim-score-bump {
+  animation: score-bump 0.28s ease-out;
+}
+.anim-badge-pop {
+  animation: badge-pop 0.45s cubic-bezier(0.2, 0.9, 0.3, 1.3) 0.7s both;
+}
+.anim-lamp {
+  animation: lamp-breathe 1.6s ease-in-out infinite;
+}
+.firefly {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  border-radius: 9999px;
+  filter: blur(0.5px);
+  animation: firefly-drift 14s ease-in-out infinite;
+  pointer-events: none;
+}
